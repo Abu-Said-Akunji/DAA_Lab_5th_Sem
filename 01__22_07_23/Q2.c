@@ -1,46 +1,41 @@
-/*Given an array arr[] of size N, find the prefix sum of the array.
- A prefix sum array is another array prefixSum[] of the same size,
- such that the value of prefixSum[i] is arr[0] + arr[1] + arr[2] . . . arr[i].*/
+/*Given an arr_3ay arr_3[] of size N, find the prefix sum of the arr_3ay.
+ A prefix sum arr_3ay is another arr_3ay prefixSum_3[] of the same size,
+ such that the value of prefixSum_3[i] is arr_3[0] + arr_3[1] + arr_3[2] . . . arr_3[i].*/
 
 #include <stdio.h>
+void find_prefix_sum(int arr_3[], int prefixSum_3[], int n_3)
+{
+    prefixSum_3[0] = arr_3[0];
 
-// Function to calculate the prefix sum array
+    for (int i_3 = 1; i_3 < n_3; i_3++)
+    {
+        prefixSum_3[i_3] = prefixSum_3[i_3 - 1] + arr_3[i_3];
+    }
+}
 
 int main()
 {
-    int n;
-    printf("Enter the size of the array: ");
-    scanf("%d", &n);
+    int n_3;
+    printf("Enter the size of the arr_3ay: ");
+    scanf("%d", &n_3);
 
-    int arr[n];
-    printf("Enter the elements of the array:\n");
-    for (int i = 0; i < n; i++)
+    int arr_3[n_3];
+    printf("Enter the elements of the arr_3ay:\n");
+    for (int i_3 = 0; i_3 < n_3; i_3++)
     {
-        scanf("%d", &arr[i]);
+        scanf("%d", &arr_3[i_3]);
     }
 
-    int prefixSum[n]; // Array to store the prefix sum
+    int prefixSum_3[n_3];
 
-    // Calculate the prefix sum array
-    find_prefix_sum(arr, prefixSum, n);
+    find_prefix_sum(arr_3, prefixSum_3, n_3);
 
-    // Print the prefix sum array
-    printf("Prefix sum array: ");
-    for (int i = 0; i < n; i++)
+    printf("Prefix sum arr_3ay: ");
+    for (int i_3 = 0; i_3 < n_3; i_3++)
     {
-        printf("%d ", prefixSum[i]);
+        printf("%d ", prefixSum_3[i_3]);
     }
     printf("\n");
 
     return 0;
-}
-void find_prefix_sum(int arr[], int prefixSum[], int n)
-{
-    prefixSum[0] = arr[0]; // The first element of prefixSum is the same as arr[0]
-
-    // Calculate the prefix sum for the remaining elements
-    for (int i = 1; i < n; i++)
-    {
-        prefixSum[i] = prefixSum[i - 1] + arr[i];
-    }
 }

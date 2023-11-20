@@ -42,11 +42,11 @@ int main(int argc_3, char *argv_3[])
     }
     fclose(lab2_2in);
     fclose(lab2_2out);
-    char str[100];
+    char str_3[100];
     lab2_2out = fopen(argv_3[2], "r");
-    while (fgets(str, sizeof(str), lab2_2out) != NULL)
+    while (fgets(str_3, sizeof(str_3), lab2_2out) != NULL)
     {
-        printf("%s", str);
+        printf("%s", str_3);
     }
 
     fclose(lab2_2out);

@@ -51,11 +51,11 @@ int main(int argc_3, char *argv_3[])
     }
     fclose(lab2_1in);
     fclose(lab2_1out);
-    char str[100];
+    char str_3[100];
     lab2_1out = fopen(argv_3[2], "r");
-    while (fgets(str, sizeof(str), lab2_1out) != NULL)
+    while (fgets(str_3, sizeof(str_3), lab2_1out) != NULL)
     {
-        printf("%s", str);
+        printf("%s", str_3);
     }
 
     fclose(lab2_1out);
