@@ -1,74 +1,74 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_NODES 1000
-#define MAX_EDGES 1000
+#define MAX_NODES_3 1000
+#define MAX_EDGES_3 1000
 
-int graph[MAX_NODES][MAX_NODES];
-int visited[MAX_NODES];
-int distance[MAX_NODES];
+int graph_3[MAX_NODES_3][MAX_NODES_3];
+int visited_3[MAX_NODES_3];
+int distance_3[MAX_NODES_3];
 
-int queue[MAX_NODES];
-int front = -1, rear = -1;
+int queue_3[MAX_NODES_3];
+int front_3 = -1, rear_3 = -1;
 
-void enqueue(int node)
+void enqueue(int node_3)
 {
-    if (rear == MAX_NODES - 1)
+    if (rear_3 == MAX_NODES_3 - 1)
     {
         printf("Queue is full\n");
     }
     else
     {
-        if (front == -1)
+        if (front_3 == -1)
         {
-            front = 0;
+            front_3 = 0;
         }
-        rear = rear + 1;
-        queue[rear] = node;
+        rear_3 = rear_3 + 1;
+        queue_3[rear_3] = node_3;
     }
 }
 
 int dequeue()
 {
-    int node;
-    if (front == -1)
+    int node_3;
+    if (front_3 == -1)
     {
         printf("Queue is empty\n");
         return -1;
     }
     else
     {
-        node = queue[front];
-        front = front + 1;
-        if (front > rear)
+        node_3 = queue_3[front_3];
+        front_3 = front_3 + 1;
+        if (front_3 > rear_3)
         {
-            front = rear = -1;
+            front_3 = rear_3 = -1;
         }
-        return node;
+        return node_3;
     }
 }
 
-void breadthFirstSearch(int start, int n)
+void breadthFirstSearch(int start_3, int n)
 {
     for (int i = 1; i <= n; i++)
     {
-        visited[i] = 0;
-        distance[i] = -1;
+        visited_3[i] = 0;
+        distance_3[i] = -1;
     }
 
-    visited[start] = 1;
-    distance[start] = 0;
-    enqueue(start);
+    visited_3[start_3] = 1;
+    distance_3[start_3] = 0;
+    enqueue(start_3);
 
-    while (front != -1)
+    while (front_3 != -1)
     {
-        int current = dequeue();
+        int current_3 = dequeue();
         for (int i = 1; i <= n; i++)
         {
-            if (graph[current][i] == 1 && !visited[i])
+            if (graph_3[current_3][i] == 1 && !visited_3[i])
             {
-                visited[i] = 1;
-                distance[i] = distance[current] + 2;
+                visited_3[i] = 1;
+                distance_3[i] = distance_3[current_3] + 2;
                 enqueue(i);
             }
         }
@@ -77,30 +77,30 @@ void breadthFirstSearch(int start, int n)
 
 int main()
 {
-    int n, m;
-    scanf("%d %d", &n, &m);
+    int n_3, m_3;
+    scanf("%d %d", &n_3, &m_3);
 
-    for (int i = 0; i < m; i++)
+    for (int i = 0; i < m_3; i++)
     {
-        int u, v;
-        scanf("%d %d", &u, &v);
-        graph[u][v] = 1;
-        graph[v][u] = 1;
+        int u_3, v_3;
+        scanf("%d %d", &u_3, &v_3);
+        graph_3[u_3][v_3] = 1;
+        graph_3[v_3][u_3] = 1;
     }
 
-    int s;
-    scanf("%d", &s);
+    int s_3;
+    scanf("%d", &s_3);
 
-    breadthFirstSearch(s, n);
-    printf("BFS Traversal: %d ", s);
-    for (int i = 0; i < m - 1; i++)
+    breadthFirstSearch(s_3, n_3);
+    printf("BFS Traversal: %d ", s_3);
+    for (int i = 0; i < m_3 - 1; i++)
     {
-        printf("%d ", queue[i]);
+        printf("%d ", queue_3[i]);
     }
     printf("\nDistance: [");
-    for (int i = 1; i <= n; i++)
+    for (int i = 1; i <= n_3; i++)
     {
-        printf("%d ", distance[i]);
+        printf("%d ", distance_3[i]);
     }
     printf("]\n");
 

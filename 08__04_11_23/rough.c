@@ -1,125 +1,110 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
-#define MAX_NODES 1000
-#define MAX_EDGES 1000
-#define INF 999999
+#define MAX 100
 
-int graph[MAX_NODES][MAX_NODES];
-int distances[MAX_NODES];
-int queue[MAX_NODES];
-bool visited[MAX_NODES];
-
-int front = -1, rear = -1;
-
-void enqueue(int node)
+typedef struct Edge
 {
-    if (rear == MAX_NODES - 1)
-    {
-        printf("Queue is full.\n");
-        return;
-    }
-    if (front == -1)
-    {
-        front = 0;
-    }
-    rear++;
-    queue[rear] = node;
+    int src, dest, weight;
+} Edge;
+
+typedef struct Graph
+{
+    int V, E;
+    Edge *edge;
+} Graph;
+
+Graph *createGraph(int V, int E)
+{
+    Graph *graph = (Graph *)malloc(sizeof(Graph));
+    graph->V = V;
+    graph->E = E;
+    graph->edge = (Edge *)malloc(E * sizeof(Edge));
+    return graph;
 }
 
-int dequeue()
+int find(int parent[], int i)
 {
-    if (front == -1)
-    {
-        printf("Queue is empty.\n");
-        return -1;
-    }
-    int node = queue[front];
-    front++;
-    if (front > rear)
-    {
-        front = rear = -1;
-    }
-    return node;
+    if (parent[i] == i)
+        return i;
+    return find(parent, parent[i]);
 }
 
-void BFS(int start, int n)
+void unionSets(int parent[], int x, int y)
 {
-    enqueue(start);
-    visited[start] = true;
-    distances[start] = 0;
+    int xset = find(parent, x);
+    int yset = find(parent, y);
+    parent[xset] = yset;
+}
 
-    while (front != -1)
+int compareEdges(const void *a, const void *b)
+{
+    return ((Edge *)a)->weight - ((Edge *)b)->weight;
+}
+
+void kruskalMST(Graph *graph)
+{
+    int V = graph->V;
+    Edge result[V];
+    int e = 0;
+    int i = 0;
+
+    qsort(graph->edge, graph->E, sizeof(graph->edge[0]), compareEdges);
+
+    int parent[V];
+    for (int v = 0; v < V; v++)
+        parent[v] = v;
+
+    while (e < V - 1 && i < graph->E)
     {
-        int current = dequeue();
-        for (int i = 1; i <= n; i++)
+        Edge next_edge = graph->edge[i++];
+        int x = find(parent, next_edge.src);
+        int y = find(parent, next_edge.dest);
+
+        if (x != y)
         {
-            if (graph[current][i] == 2 && !visited[i])
-            {
-                enqueue(i);
-                visited[i] = true;
-                distances[i] = distances[current] + 2;
-            }
+            result[e++] = next_edge;
+            unionSets(parent, x, y);
         }
     }
+
+    printf("Edge\n");
+    int totalWeight = 0;
+    for (i = 0; i < e; i++)
+    {
+        printf("%d--%d\n", result[i].src, result[i].dest);
+        totalWeight += result[i].weight;
+    }
+
+    printf("Cost\n");
+    for (i = 0; i < e; i++)
+    {
+        printf("%d ", result[i].weight);
+    }
+    for (; i < V - 1; i++)
+    {
+        printf("+∞ ");
+    }
+
+    printf("\nTotal Weight of the Spanning Tree: %d\n", totalWeight);
 }
 
 int main()
 {
-    int n, m, u, v, s;
+    int n, m;
     scanf("%d %d", &n, &m);
+    Graph *graph = createGraph(n, m);
 
     for (int i = 0; i < m; i++)
     {
-        scanf("%d %d", &u, &v);
-        graph[u][v] = 2;
-        graph[v][u] = 2; // Undirected graph
+        int u, v, w;
+        scanf("%d %d %d", &u, &v, &w);
+        graph->edge[i].src = u;
+        graph->edge[i].dest = v;
+        graph->edge[i].weight = w;
     }
 
-    for (int i = 1; i <= n; i++)
-    {
-        for (int j = 1; j <= n; j++)
-        {
-            if (graph[i][j] != 2)
-            {
-                graph[i][j] = -1; // Initialize non-adjacent nodes with -1
-            }
-        }
-    }
-
-    for (int i = 1; i <= n; i++)
-    {
-        distances[i] = INF; // Initialize distances to infinity
-        visited[i] = false;
-    }
-
-    scanf("%d", &s);
-    BFS(s, n);
-
-    // for (int i = 1; i <= n; i++)
-    // {
-    //     if (visited[i])
-    //     {
-    //         printf("%d ", visited[i]);
-    //     }
-    // }
-    for (int i = 1; i <= n; i++)
-    {
-        if (i == s)
-        {
-            continue; // Skip the start node
-        }
-        if (distances[i] == INF)
-        {
-            printf("-1 ");
-        }
-        else
-        {
-            printf("%d ", distances[i]);
-        }
-    }
-    printf("\n");
+    kruskalMST(graph);
 
     return 0;
 }

@@ -1,63 +1,63 @@
 #include <stdio.h>
 
-int binarySearchLeftmost(int arr[], int size, int key, int *comparisons)
+int binarySearchLeftmost(int arr_3[], int size_3, int key_3, int *comparisons_3)
 {
-    int low = 0;
-    int high = size - 1;
-    int result = -1;
+    int low_3 = 0;
+    int high_3 = size_3 - 1;
+    int result_3 = -1;
 
-    while (low <= high)
+    while (low_3 <= high_3)
     {
-        int mid = low + (high - low) / 2;
+        int mid_3 = low_3 + (high_3 - low_3) / 2;
 
-        if (arr[mid] == key)
+        if (arr_3[mid_3] == key_3)
         {
-            result = mid;
-            high = mid - 1;
+            result_3 = mid_3;
+            high_3 = mid_3 - 1;
         }
-        else if (arr[mid] < key)
+        else if (arr_3[mid_3] < key_3)
         {
-            low = mid + 1;
+            low_3 = mid_3 + 1;
         }
         else
         {
-            high = mid - 1;
+            high_3 = mid_3 - 1;
         }
 
-        (*comparisons)++;
+        (*comparisons_3)++;
     }
 
-    return result;
+    return result_3;
 }
 
 int main()
 {
-    int size;
-    printf("Enter size of array: ");
-    scanf("%d", &size);
+    int size_3;
+    printf("Enter size_3 of array: ");
+    scanf("%d", &size_3);
 
-    int arr[size];
+    int arr_3[size_3];
     printf("Enter elements of the array: ");
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < size_3; i++)
     {
-        scanf("%d", &arr[i]);
+        scanf("%d", &arr_3[i]);
     }
 
-    int key;
-    printf("Enter the key to be searched: ");
-    scanf("%d", &key);
+    int key_3;
+    printf("Enter the key_3 to be searched: ");
+    scanf("%d", &key_3);
 
-    int comparisons = 0;
-    int index = binarySearchLeftmost(arr, size, key, &comparisons);
+    int comparisons_3 = 0;
+    int index_3 = binarySearchLeftmost(arr_3, size_3, key_3, &comparisons_3);
 
-    if (index != -1)
+    if (index_3 != -1)
     {
-        printf("%d found at index position %d\n", key, index);
-        printf("Number of comparisons: %d\n", comparisons);
+        printf("%d found at index_3 position %d\n", key_3, index_3);
+        printf("Number of comparisons_3: %d\n", comparisons_3);
     }
     else
     {
-        printf("%d not found in the array\n", key);
+        printf("%d not found in the array\n", key_3);
     }
 
     return 0;

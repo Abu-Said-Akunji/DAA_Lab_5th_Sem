@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <time.h>
 
-int comparisions = 0;
+int comparisions_3 = 0;
 
-void generateAscending(const char *filename)
+void generateAscending(const char *filename_3)
 {
-    FILE *file = fopen(filename, "w");
+    FILE *file = fopen(filename_3, "w");
     if (file == NULL)
     {
-        printf("Error opening file %s\n", filename);
+        printf("Error opening file %s\n", filename_3);
         return;
     }
 
@@ -21,12 +21,12 @@ void generateAscending(const char *filename)
     fclose(file);
 }
 
-void generateDescending(const char *filename)
+void generateDescending(const char *filename_3)
 {
-    FILE *file = fopen(filename, "w");
+    FILE *file = fopen(filename_3, "w");
     if (file == NULL)
     {
-        printf("Error opening file %s\n", filename);
+        printf("Error opening file %s\n", filename_3);
         return;
     }
 
@@ -38,12 +38,12 @@ void generateDescending(const char *filename)
     fclose(file);
 }
 
-void generateRandom(const char *filename)
+void generateRandom(const char *filename_3)
 {
-    FILE *file = fopen(filename, "w");
+    FILE *file = fopen(filename_3, "w");
     if (file == NULL)
     {
-        printf("Error opening file %s\n", filename);
+        printf("Error opening file %s\n", filename_3);
         return;
     }
 
@@ -56,74 +56,74 @@ void generateRandom(const char *filename)
     fclose(file);
 }
 
-void merge(int arr[], int left, int right, int mid)
+void merge(int arr_3[], int left_3, int right_3, int mid_3)
 {
     int i, j, k;
-    int n1 = mid - left + 1;
-    int n2 = right - mid;
-    int L[n1], R[n2];
-    for (i = 0; i < n1; i++)
+    int n1_3 = mid_3 - left_3 + 1;
+    int n2_3 = right_3 - mid_3;
+    int L[n1_3], R[n2_3];
+    for (i = 0; i < n1_3; i++)
     {
-        L[i] = arr[left + i];
+        L[i] = arr_3[left_3 + i];
     }
-    for (j = 0; j < n2; j++)
+    for (j = 0; j < n2_3; j++)
     {
-        R[j] = arr[mid + 1 + j];
+        R[j] = arr_3[mid_3 + 1 + j];
     }
     i = 0;
     j = 0;
-    k = left;
+    k = left_3;
 
-    while (i < n1 && j < n2)
+    while (i < n1_3 && j < n2_3)
     {
-        comparisions++;
+        comparisions_3++;
         if (L[i] <= R[j])
         {
-            arr[k] = L[i];
+            arr_3[k] = L[i];
             i++;
         }
         else
         {
-            arr[k] = R[j];
+            arr_3[k] = R[j];
             j++;
         }
         k++;
     }
 
-    while (i < n1)
+    while (i < n1_3)
     {
-        arr[k] = L[i];
+        arr_3[k] = L[i];
         i++;
         k++;
     }
 
-    while (j < n2)
+    while (j < n2_3)
     {
-        arr[k] = R[j];
+        arr_3[k] = R[j];
         j++;
         k++;
     }
 }
 
-void mergeSort(int arr[], int left, int right)
+void mergeSort(int arr_3[], int left_3, int right_3)
 {
-    if (left < right)
+    if (left_3 < right_3)
     {
-        int mid = left + (right - left) / 2;
-        mergeSort(arr, left, mid);
-        mergeSort(arr, mid + 1, right);
-        merge(arr, left, right, mid);
+        int mid_3 = left_3 + (right_3 - left_3) / 2;
+        mergeSort(arr_3, left_3, mid_3);
+        mergeSort(arr_3, mid_3 + 1, right_3);
+        merge(arr_3, left_3, right_3, mid_3);
     }
 }
 
 int main()
 {
-    int option;
-    int arr[400];
-    int left = 0;
-    int right = 399;
-    clock_t start_time, end_time;
-    double elapsed_time;
+    int option_3;
+    int arr_3[400];
+    int left_3 = 0;
+    int right_3 = 399;
+    clock_t start_time_3, end_time_3;
+    double elapsed_time_3;
 
     generateAscending("inAsce.txt");
     generateDescending("inDesc.txt");
@@ -136,128 +136,128 @@ int main()
         printf("2. Descending Data\n");
         printf("3. Random Data\n");
         printf("4. Exit\n");
-        printf("Enter option: ");
-        scanf("%d", &option);
-        switch (option)
+        printf("Enter option_3: ");
+        scanf("%d", &option_3);
+        switch (option_3)
         {
         case 1:
-            start_time = clock();
+            start_time_3 = clock();
             FILE *infile3 = fopen("inAsce.txt", "r");
             if (infile3 == NULL)
             {
                 printf("Error opening the file.");
                 return 1;
             }
-            for (int i = 0; i < right; i++)
+            for (int i = 0; i < right_3; i++)
             {
-                fscanf(infile3, "%d", &arr[i]);
+                fscanf(infile3, "%d", &arr_3[i]);
             }
             fclose(infile3);
             printf("\nBefore sorting: \n");
-            for (int i = 0; i < right; i++)
+            for (int i = 0; i < right_3; i++)
             {
-                printf("%d ", arr[i]);
+                printf("%d ", arr_3[i]);
             }
-            comparisions = 0;
-            mergeSort(arr, left, right);
+            comparisions_3 = 0;
+            mergeSort(arr_3, left_3, right_3);
             printf("\n  \nAfter sorting: \n");
-            for (int i = 0; i < right; i++)
+            for (int i = 0; i < right_3; i++)
             {
-                printf("%d ", arr[i]);
+                printf("%d ", arr_3[i]);
             }
             FILE *outfile3 = fopen("outMergeAsce.txt", "w");
-            for (int i = 0; i < right; i++)
+            for (int i = 0; i < right_3; i++)
             {
-                fprintf(outfile3, "\n%d", arr[i]);
+                fprintf(outfile3, "\n%d", arr_3[i]);
             }
             fclose(outfile3);
-            end_time = clock();
-            printf("\nNumber of comparisons: %d", comparisions);
-            elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
-            printf("\nElapsed time: %.4f seconds\n", elapsed_time);
+            end_time_3 = clock();
+            printf("\nNumber of comparisons: %d", comparisions_3);
+            elapsed_time_3 = (double)(end_time_3 - start_time_3) / CLOCKS_PER_SEC;
+            printf("\nElapsed time: %.4f seconds\n", elapsed_time_3);
             printf("\nScenario: Best-Case");
             break;
 
         case 2:
-            start_time = clock();
+            start_time_3 = clock();
             FILE *infile1 = fopen("inDesc.txt", "r");
             if (infile1 == NULL)
             {
                 printf("Error opening the file.");
                 return 1;
             }
-            for (int i = 0; i < right; i++)
+            for (int i = 0; i < right_3; i++)
             {
-                fscanf(infile1, "%d", &arr[i]);
+                fscanf(infile1, "%d", &arr_3[i]);
             }
             fclose(infile1);
             printf("\nBefore sorting: \n");
-            for (int i = 0; i < right; i++)
+            for (int i = 0; i < right_3; i++)
             {
-                printf("%d ", arr[i]);
+                printf("%d ", arr_3[i]);
             }
-            comparisions = 0;
-            mergeSort(arr, left, right);
+            comparisions_3 = 0;
+            mergeSort(arr_3, left_3, right_3);
             printf("\nAfter sorting: \n");
-            for (int i = 0; i < right; i++)
+            for (int i = 0; i < right_3; i++)
             {
-                printf("%d ", arr[i]);
+                printf("%d ", arr_3[i]);
             }
             FILE *outfile1 = fopen("outMergeDesc.txt", "w");
-            for (int i = 0; i < right; i++)
+            for (int i = 0; i < right_3; i++)
             {
-                fprintf(outfile1, "\n%d", arr[i]);
+                fprintf(outfile1, "\n%d", arr_3[i]);
             }
             fclose(outfile1);
-            end_time = clock();
-            printf("\nNumber of comparisons: %d", comparisions);
-            elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
-            printf("\nElapsed time: %.4f seconds\n", elapsed_time);
+            end_time_3 = clock();
+            printf("\nNumber of comparisons: %d", comparisions_3);
+            elapsed_time_3 = (double)(end_time_3 - start_time_3) / CLOCKS_PER_SEC;
+            printf("\nElapsed time: %.4f seconds\n", elapsed_time_3);
             printf("\nScenario: Worst-Case");
             break;
 
         case 3:
-            start_time = clock();
+            start_time_3 = clock();
             FILE *infile2 = fopen("inRand.txt", "r");
             if (infile2 == NULL)
             {
                 printf("Error opening the file.");
                 return 1;
             }
-            for (int i = 0; i < right; i++)
+            for (int i = 0; i < right_3; i++)
             {
-                fscanf(infile2, "%d", &arr[i]);
+                fscanf(infile2, "%d", &arr_3[i]);
             }
             fclose(infile2);
             printf("\nBefore sorting: \n");
-            for (int i = 0; i < right; i++)
+            for (int i = 0; i < right_3; i++)
             {
-                printf("%d ", arr[i]);
+                printf("%d ", arr_3[i]);
             }
-            comparisions = 0;
-            mergeSort(arr, left, right);
+            comparisions_3 = 0;
+            mergeSort(arr_3, left_3, right_3);
             printf("\nAfter sorting: \n");
-            for (int i = 0; i < right; i++)
+            for (int i = 0; i < right_3; i++)
             {
-                printf("%d ", arr[i]);
+                printf("%d ", arr_3[i]);
             }
             FILE *outfile2 = fopen("outMergeRand.dat", "w");
-            for (int i = 0; i < right; i++)
+            for (int i = 0; i < right_3; i++)
             {
-                fprintf(outfile2, "\n%d", arr[i]);
+                fprintf(outfile2, "\n%d", arr_3[i]);
             }
             fclose(outfile2);
-            end_time = clock();
-            printf("\nNumber of comparisons: %d", comparisions);
-            elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
-            printf("\nElapsed time: %.4f seconds\n", elapsed_time);
+            end_time_3 = clock();
+            printf("\nNumber of comparisons: %d", comparisions_3);
+            elapsed_time_3 = (double)(end_time_3 - start_time_3) / CLOCKS_PER_SEC;
+            printf("\nElapsed time: %.4f seconds\n", elapsed_time_3);
             printf("\nScenario: Average Case");
             break;
         case 4:
             exit(0);
             break;
         default:
-            printf("Enter a valid option!\n");
+            printf("Enter a valid option_3!\n");
             break;
         }
     }

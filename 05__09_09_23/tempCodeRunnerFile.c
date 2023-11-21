@@ -1,0 +1,1 @@
+printf("Id Name Age Height Weight(pound)\n");

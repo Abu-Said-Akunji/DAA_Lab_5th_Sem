@@ -2,29 +2,29 @@
 #include <string.h>
 #include <stdlib.h>
 
-void insertionSort(int arr[], int size, int *comparisons)
+void insertionSort(int arr_3[], int size_3, int *comparisons_3)
 {
-    for (int i = 1; i < size; i++)
+    for (int i = 1; i < size_3; i++)
     {
-        int key = arr[i];
+        int key_3 = arr_3[i];
         int j = i - 1;
 
-        while (j >= 0 && arr[j] > key)
+        while (j >= 0 && arr_3[j] > key_3)
         {
-            arr[j + 1] = arr[j];
+            arr_3[j + 1] = arr_3[j];
             j--;
-            (*comparisons)++;
+            (*comparisons_3)++;
         }
 
-        arr[j + 1] = key;
+        arr_3[j + 1] = key_3;
     }
 }
 
-void printArray(int arr[], int size)
+void printArray(int arr_3[], int size_3)
 {
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < size_3; i++)
     {
-        printf("%d ", arr[i]);
+        printf("%d ", arr_3[i]);
     }
     printf("\n");
 }
@@ -32,8 +32,8 @@ void printArray(int arr[], int size)
 int main()
 {
     FILE *inputFile, *outputFile;
-    int option;
-    int comparisons = 0;
+    int option_3;
+    int comparisons_3 = 0;
 
     while (1)
     {
@@ -42,76 +42,76 @@ int main()
         printf("2. Descending Data\n");
         printf("3. Random Data\n");
         printf("4. EXIT\n");
-        printf("Enter option: ");
-        scanf("%d", &option);
+        printf("Enter option_3: ");
+        scanf("%d", &option_3);
 
-        if (option == 4)
+        if (option_3 == 4)
         {
             break;
         }
 
-        char inputFileName[20], outputFileName[20];
-        int arr[500], size;
+        char inputFileName_3[20], outputFileName_3[20];
+        int arr_3[500], size_3;
 
-        switch (option)
+        switch (option_3)
         {
         case 1:
-            strcpy(inputFileName, "inAsce.txt");
-            strcpy(outputFileName, "outInsAsce.txt");
+            strcpy(inputFileName_3, "inAsce.txt");
+            strcpy(outputFileName_3, "outInsAsce.txt");
             break;
         case 2:
-            strcpy(inputFileName, "inDesc.txt");
-            strcpy(outputFileName, "outInsDesc.txt");
+            strcpy(inputFileName_3, "inDesc.txt");
+            strcpy(outputFileName_3, "outInsDesc.txt");
             break;
         case 3:
-            strcpy(inputFileName, "inRand.txt");
-            strcpy(outputFileName, "outInsRand.txt");
+            strcpy(inputFileName_3, "inRand.txt");
+            strcpy(outputFileName_3, "outInsRand.txt");
             break;
         default:
-            printf("Invalid option!\n");
+            printf("Invalid option_3!\n");
             continue;
         }
 
-        inputFile = fopen(inputFileName, "r");
+        inputFile = fopen(inputFileName_3, "r");
         if (inputFile == NULL)
         {
             perror("Error opening input file");
             exit(1);
         }
 
-        size = 0;
-        while (fscanf(inputFile, "%d", &arr[size]) != EOF)
+        size_3 = 0;
+        while (fscanf(inputFile, "%d", &arr_3[size_3]) != EOF)
         {
-            size++;
+            size_3++;
         }
 
         fclose(inputFile);
 
         printf("Before Sorting: ");
-        printArray(arr, size);
+        printArray(arr_3, size_3);
 
-        comparisons = 0;
-        insertionSort(arr, size, &comparisons);
+        comparisons_3 = 0;
+        insertionSort(arr_3, size_3, &comparisons_3);
 
-        outputFile = fopen(outputFileName, "w");
+        outputFile = fopen(outputFileName_3, "w");
         if (outputFile == NULL)
         {
             perror("Error opening output file");
             exit(1);
         }
 
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < size_3; i++)
         {
-            fprintf(outputFile, "%d ", arr[i]);
+            fprintf(outputFile, "%d ", arr_3[i]);
         }
 
         fclose(outputFile);
 
         printf("After Sorting: ");
-        printArray(arr, size);
+        printArray(arr_3, size_3);
 
-        printf("Number of Comparisons: %d\n", comparisons);
-        printf("Scenario: %s-case\n", (comparisons == 0) ? "Best" : "Worst");
+        printf("Number of Comparisons: %d\n", comparisons_3);
+        printf("Scenario: %s-case\n", (comparisons_3 == 0) ? "Best" : "Worst");
     }
 
     return 0;
